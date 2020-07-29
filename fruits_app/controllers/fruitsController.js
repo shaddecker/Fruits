@@ -4,6 +4,7 @@ const router = express.Router();
 //require the data file for fruits
 const Fruit = require("../models").Fruit;
 const User = require('../models').User;
+const Season = require('../models').Season;
 
 // //index route
 router.get("/", (req, res) => {
@@ -32,10 +33,15 @@ router.get("/new", (req, res) => {
 router.get("/:id", (req, res) => {
   Fruit.findByPk(req.params.id, {
       // include : [User]  <= this method returns all columns
-      include : [{
+      include : [
+      {
         model: User,
-        attributes: ['name']
-    }],
+        attributes: ['name'],
+      },
+      {
+        model: Season,
+      },
+      ],
     attributes: ['name', 'color', 'readyToEat']
   })
   .then(fruitFromDB => {
@@ -59,8 +65,11 @@ router.post("/", (req, res) => {
 
 router.get("/:id/edit",  (req, res) => {
   Fruit.findByPk(req.params.id).then((fruit) => {
-    res.render("fruits/edit.ejs", {
-      fruit: fruit, //send the fruit object
+    Season.findAll().then((allSeasons) => {
+      res.render("fruits/edit.ejs", {
+        fruit: fruit, //send the fruit object
+        seasons: allSeasons,
+      });
     });
   });
 });
@@ -75,8 +84,13 @@ router.put("/:id", (req, res) => {
   Fruit.update(req.body, {
     where: { id: req.params.id },
     returning: true,
-  }).then((fruit) => {
-    res.redirect("/fruits");
+  }).then((updatedFruit) => {
+    Season.findByPk(req.body.season).then((foundSeason) => {
+      Fruit.findByPk(req.params.id).then((foundFruit) => {
+        foundFruit.addSeason(foundSeason);
+        res.redirect("/fruits");
+      });
+    });  
   });
 });
 

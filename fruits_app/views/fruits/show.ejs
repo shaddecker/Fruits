@@ -15,6 +15,15 @@
       %> It is not ready to eat <% } %>
     </div>
     <div>The fruit was added by: <%=fruit.User.name  %></div>
+    <div>
+      <h3>It is available in Seasons:</h3>
+    <% for (let i=0; i< fruit.Seasons.length; i++){ %>
+    <li>
+      <a href="/seasons/<%=fruit.Seasons[i].id%>"><%=fruit.Seasons[i].name%></a>
+    </li>
+    <br />
+    <% } %>
+    </div>
     <div class="back">
       <form action="/fruits/<%= fruit.id %>?_method=DELETE" method="POST">
         <input type="submit" value="DELETE <%= fruit.name %>" />
