@@ -5,7 +5,7 @@ const router = express.Router();
 const Fruit = require("../models").Fruit;
 const User = require('../models').User;
 
-//index route
+// //index route
 router.get("/", (req, res) => {
   Fruit.findAll().then((fruits) => {
     res.render("fruits/index.ejs", {
@@ -13,6 +13,15 @@ router.get("/", (req, res) => {
     });
   });
 });
+
+//index route using async
+// router.get("/", async (req, res) => {
+//    await Fruit.findAll((fruits) => {
+//     res.render("fruits/index.ejs", {
+//       fruits: fruits,
+//     });
+//   });
+// });
 
 //new fruit route
 router.get("/new", (req, res) => {
