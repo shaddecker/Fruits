@@ -28,6 +28,15 @@
       </form>
       <br /><br />
       <a href="/fruits">View All Fruits</a>
+      <div></div>
+      <div>
+        <h3>Fruits added by you:</h3>
+            <% for (let i = 0; i < user.Fruits.length; i++){ %>
+            <li>
+               <a href="/fruits/<%=user.Fruits[i].id%>"><%=user.Fruits[i].name%></a>
+            </li>
+            <% } %>
+      </div>
     </div>
   </body>
 </html>

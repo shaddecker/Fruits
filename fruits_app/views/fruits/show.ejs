@@ -9,14 +9,18 @@
 
   <body>
     <h1>Fruits show page</h1>
-    <div class="back">
+    <div class="container">
+      <div>
       The <%= fruit.name %> is <%= fruit.color %>. <% if (fruit.readyToEat === true) { %> It is ready to eat <% } else {
       %> It is not ready to eat <% } %>
     </div>
+    <div>The fruit was added by: <%=fruit.User.name  %></div>
     <div class="back">
       <form action="/fruits/<%= fruit.id %>?_method=DELETE" method="POST">
         <input type="submit" value="DELETE <%= fruit.name %>" />
       </form>
     </div>
+    <a href="/fruits">Back to All Fruits</a>
+  </div>
   </body>
 </html>

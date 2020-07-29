@@ -21,13 +21,20 @@ router.get("/new", (req, res) => {
 
 // SHOW ROUTE - GET ONE FRUIT
 router.get("/:id", (req, res) => {
-  Fruit.findByPk(req.params.id).then((fruit) => {
-    include : [User]
-    res.render("fruits/show.ejs", {
-      fruit: fruit,
-    });
-  });
-});
+  Fruit.findByPk(req.params.id, {
+      // include : [User]  <= this method returns all columns
+      include : [{
+        model: User,
+        attributes: ['name']
+    }],
+    attributes: ['name', 'color', 'readyToEat']
+  })
+  .then(fruitFromDB => {
+      res.render('fruits/show.ejs', {
+          fruit: fruitFromDB
+      });
+  })
+})
 
 //post route
 router.post("/", (req, res) => {

@@ -10,12 +10,13 @@
   <body>
     <h1>Add a new fruit!</h1>
     <!--  NOTE: action will be the route, method will be the HTTP verb-->
-    <div class="back">
+    <div class="verticleContainer">
       <form action="/fruits" method="POST">
-        Name: <input type="text" name="name" /><br />
-        Color: <input type="text" name="color" /><br />
-        Is Ready To Eat: <input type="checkbox" name="readyToEat" /><br />
-        <input type="submit" name="" value="Create Fruit" />
+        <div>User Id: <input type="text" name="userId" /></div>
+          <div>Name: <input type="text" name="name" /></div>
+            <div>Color: <input type="text" name="color" /></div>
+              <div>Is Ready To Eat: <input type="checkbox" name="readyToEat" /></div>
+                <div><input type="submit" name="" value="Create Fruit" /><div>
       </form>
     </div>
   </body>

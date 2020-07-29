@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const User = require('../models').User;
+const Fruit = require('../models').Fruit;
 
 router.get("/", (req, res) => {
   res.render("users/index.ejs");
@@ -41,11 +42,18 @@ router.post("/login", (req, res) => {
 
 //user profile path
 router.get("/profile/:id", (req, res) => {
-  User.findByPk(req.params.id).then((user) => {
-  res.render("users/profile.ejs", {
-    user: user,
+  User.findByPk(req.params.id, {
+    include: [
+      {
+        model: Fruit,
+        attributes: ["id", "name"],
+      },
+    ],
+  }).then((userProfile) => {
+    res.render("users/profile.ejs", {
+      user: userProfile,
+    });
   });
-});
 });
 
 //PUT an update route

@@ -5,6 +5,17 @@ h1 {
 h3 {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.container {
+  background-color: lightsalmon;
+  border-radius: 15px;
+  border-style: solid 2px black;
+  padding: 10px;
+  width: 250px;
+  height: auto;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}
 .fruitsBack {
   background-color: wheat;
 }
@@ -15,16 +26,17 @@ h3 {
 
 input {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
+  font-size: 16px;
+  margin: 10px;
 }
 
 .formBack {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 a {
-  font-size: 18px;
+  font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
   margin: 10px;
   padding: 5px;
@@ -35,22 +47,26 @@ a:active {
   color: red;
   background-color: white;
   text-decoration: none;
+  margin: 10px;
 }
 a:link {
   color: red;
   background-color: white;
   text-decoration: none;
+  margin: 10px;
 }
 a:hover {
   text-decoration: none;
   background-color: black;
   color: white;
   font-size: 20px;
+  margin: 10px;
 }
 a:visited {
   color: red;
   background-color: white;
   text-decoration: none;
+  margin: 10px;
 }
 
 .fruitIndex {
