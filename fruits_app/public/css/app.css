@@ -1,0 +1,60 @@
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h3 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.fruitsBack {
+  background-color: wheat;
+}
+
+.userBody {
+  background-color: lightgray;
+}
+
+input {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+
+.formBack {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+
+a {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 10px;
+  padding: 5px;
+  height: 20px;
+  width: 50px;
+}
+a:active {
+  color: red;
+  background-color: white;
+  text-decoration: none;
+}
+a:link {
+  color: red;
+  background-color: white;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+}
+a:visited {
+  color: red;
+  background-color: white;
+  text-decoration: none;
+}
+
+.fruitIndex {
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+}
