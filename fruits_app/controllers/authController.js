@@ -2,18 +2,32 @@ const express = require("express");
 const router = express.Router();
 
 const User = require("../models").User;
-
+const bcrypt = require('bcryptjs');
 
 router.get("/signup", (req, res) => {
     res.render("auth/signup.ejs");
   });
   
   //create new user post route
-  router.post("/", async (req, res) => {
-    // console.log(req.body);aw3s$EE5
-    const newUser = await User.create(req.body);
-    res.redirect(`/users/profile/${newUser.id}`);
+  router.post("/",  (req, res) => {
+    bcrypt.genSalt(10, (err, salt) => {
+      if (err) return res.status(500).json(err);
+  
+      bcrypt.hash(req.body.password, salt, (err, hashedPwd) => {
+        if (err) return res.status(500).json(err);
+        req.body.password = hashedPwd;
+
+    User.create(req.body)
+        .then((newUser) => {
+          res.redirect(`/users/profile/${newUser.id}`);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.send(`err ${err}`);
+        });
+    });
   });
+});
   
   router.get("/login", async (req, res) => {
     let userIdNotFound = false;
@@ -24,10 +38,22 @@ router.get("/signup", (req, res) => {
       userIdNotFound});
   });
   
-  router.post("/login", async (req, res) => {
-    const newUser = await User.findOne({ 
-      where: { username: req.body.username,password: req.body.password}});
-    res.redirect(`/users/profile/${newUser.id}`);   
+  router.post("/login", (req, res) => {
+    User.findOne({
+      where: {
+        username: req.body.username,
+      },
+    }).then((foundUser) => {
+      if (foundUser) {
+        bcrypt.compare(req.body.password, foundUser.password, (err, match) => {
+          if (match) {
+            res.redirect(`/users/profile/${foundUser.id}`);
+          } else {
+            return res.sendStatus(400);
+          }
+        });
+      }
+    });
   });
 
   
