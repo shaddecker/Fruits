@@ -1,3 +1,4 @@
+require('dotenv').config()
 //require the express library
 const express = require("express");
 //include the method-override package
@@ -13,10 +14,16 @@ app.use((req, res, next) => {
 });
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
+
+app.get("/", (req, res) => {
+  res.render("users/index.ejs");
+});
+
 app.use("/fruits", require("./controllers/fruitsController.js"));
 app.use("/users", require("./controllers/usersController.js"));
+app.use("/auth", require("./controllers/authController.js"));
 
 //listen for express requests on port 3000
-app.listen(3005, () => {
+app.listen(process.env.PORT, () => {
   console.log("Skynet is aware...");
 });

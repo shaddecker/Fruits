@@ -52,25 +52,22 @@ router.get("/:id", (req, res) => {
 })
 
 //post route
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   if (req.body.readyToEat === "on") {
     req.body.readyToEat = true;
   } else {
     req.body.readyToEat = false; 
   }
-  Fruit.create(req.body).then((newFruit)=> {
-    res.redirect("/fruits");
-  });
+  const newFruit = await Fruit.create(req.body);
+  res.redirect("/fruits");
 });
 
-router.get("/:id/edit",  (req, res) => {
-  Fruit.findByPk(req.params.id).then((fruit) => {
-    Season.findAll().then((allSeasons) => {
-      res.render("fruits/edit.ejs", {
-        fruit: fruit, //send the fruit object
-        seasons: allSeasons,
-      });
-    });
+router.get("/:id/edit", async (req, res) => {
+  const foundFruit = await Fruit.findByPk(req.params.id);
+  const allSeasons = await Season.findAll();
+  res.render("fruits/edit.ejs", {
+    fruit: foundFruit, 
+    seasons: allSeasons,
   });
 });
 
@@ -95,10 +92,9 @@ router.put("/:id", (req, res) => {
 });
 
 
-router.delete("/:id", (req, res) => {
-  Fruit.destroy({where: { id: req.params.id } }).then(() => {
+router.delete("/:id", async (req, res) => {
+  await Fruit.destroy({where: { id: req.params.id } });
     res.redirect("/fruits");
-  }); 
 });
 
 module.exports = router;
