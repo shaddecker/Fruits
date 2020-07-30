@@ -5,7 +5,10 @@ const express = require("express");
 const methodOverride = require("method-override");
 //create an instance of the express module
 const app = express();
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
+app.use(cookieParser());
 app.use(express.static("public"));
 
 app.use((req, res, next) => {
